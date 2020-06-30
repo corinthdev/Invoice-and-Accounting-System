@@ -1,0 +1,244 @@
+﻿@using AccountingSystems.Web.Models.Common.Modals
+@model AccountingSystems.Web.Models.Products.EditProductModalViewModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditProduct")))
+
+<div class="modal-body">
+    <form name="ProductEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.ProductEdit.ProductEdit.Id" />
+        <input type="hidden" name="TenantId" value="@Model.ProductEdit.ProductEdit.TenantId" />
+        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            <li id="firstTabEdit" role="presentation" class="active"><a href="#create-product-detailsedit" data-toggle="tab">Product Details</a></li>
+            <li id="nextTabEdit" role="presentation"><a href="#create-other-detailsedit" data-toggle="tab">Other Details</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-product-detailsedit">
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label for="SuppCodeEdit">Supplier Code</label>
+                                <select id="SuppCodeEdit" name="SupplierCode" class="form-control show-tick" data-live-search="true">
+                                    <option value="">Select Supplier</option>
+                                    <option selected value="@Model.ProductEdit.ProductEdit.SuppliersCode">@Model.ProductEdit.ProductEdit.SuppliersCode</option>
+                                    @foreach (var supplier in Model.Suppliers)
+                                    {
+                                        <option value="@supplier.Code">@supplier.Code</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="SupplierNameEdit" type="text" name="SupplierName" value="@Model.ProductEdit.ProductEdit.SuppliersName" required maxlength="32" minlength="2" class="validate form-control">
+                                <label for="SupplierNameEdit" class="form-label">Supplier Name</label>
+                                <input id="SupplierIdEdit" class="hidden" name="SupplierId" value="@Model.ProductEdit.ProductEdit.SupplierId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Code" type="text" name="Code" value="@Model.ProductEdit.ProductEdit.Code" required minlength="2" class="validate form-control">
+                                <label for="Code" class="form-label">Product Code</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="ItemName" type="text" name="ItemName" value="@Model.ProductEdit.ProductEdit.ItemName" required minlength="2" class="validate form-control">
+                                <label for="ItemName" class="form-label">Product Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="GrossPrice" type="text" name="GrossPrice" value="@Model.ProductEdit.ProductEdit.GrossPrice" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="GrossPrice" class="form-label">Gross Price</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Freight" type="text" name="Freight" value="@Model.ProductEdit.ProductEdit.Freight" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Freight" class="form-label">Freight</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Discount" type="text" name="Discount" value="@Model.ProductEdit.ProductEdit.Discount" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Discount" class="form-label">Discount</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Vat" type="text" name="Vat" value="@Model.ProductEdit.ProductEdit.Vat" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Vat" class="form-label">Vat</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PercentagePriceMargin" type="text" name="PercentagePriceMargin" value="@Model.ProductEdit.ProductEdit.PercentagePriceMargin" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PercentagePriceMargin" class="form-label">Percentage Price Margin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceMargin" type="text" name="PriceMargin" value="@Model.ProductEdit.ProductEdit.PriceMargin" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceMargin" class="form-label">Price Margin</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                    <a id="nextBtnEdit" role="presentation" href="#create-other-detailsedit" data-toggle="tab" class="btn btn-primary waves-effect">Next</a>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane animated fadeIn" id="create-other-detailsedit">
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceA" type="text" name="PriceA" value="@Model.ProductEdit.ProductEdit.PriceA" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceA" class="form-label">Price A</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceB" type="text" name="PriceB" value="@Model.ProductEdit.ProductEdit.PriceB" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceB" class="form-label">Price B</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceC" type="text" name="PriceC" value="@Model.ProductEdit.ProductEdit.PriceC" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceC" class="form-label">Price C</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceD" type="text" name="PriceD" value="@Model.ProductEdit.ProductEdit.PriceD" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceD" class="form-label">Price D</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceE" type="text" name="PriceE" value="@Model.ProductEdit.ProductEdit.PriceE" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceE" class="form-label">Price E</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PriceF" type="text" name="PriceF" value="@Model.ProductEdit.ProductEdit.PriceF" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PriceF" class="form-label">Price F</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Brand" type="text" name="Brand" value="@Model.ProductEdit.ProductEdit.Brand" required maxlength="32" minlength="2" class="validate form-control">
+                                <label for="Brand" class="form-label">Brand/Category</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="CasesEdit" type="text" name="Cases" value="@Model.ProductEdit.ProductEdit.Cases" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="CasesEdit" class="form-label">Cases</label>
+                                <input id="PricePerPieceEdit" type="text" name="PricePerPiece" value="@Model.ProductEdit.ProductEdit.PricePerPiece" required maxlength="32" minlength="1" class="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Box" type="text" name="Box" value="@Model.ProductEdit.ProductEdit.Box" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Box" class="form-label">Box</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Pieces" type="text" name="Pieces" value="@Model.ProductEdit.ProductEdit.Pieces" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Pieces" class="form-label">Pcs</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="BarcodeCase" type="text" name="BarcodeCase" value="@Model.ProductEdit.ProductEdit.BarcodeCase" maxlength="32" minlength="2" class="validate form-control">
+                                <label for="BarcodeCase" class="form-label">Barcode</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="BarcodeItem" type="text" name="BarcodeItem" value="@Model.ProductEdit.ProductEdit.BarcodeItem" maxlength="32" minlength="2" class="validate form-control">
+                                <label for="BarcodeItem" class="form-label">Barcode</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-button waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="~/view-resources/Views/Products/_EditProductModal.js" asp-append-version="true"></script>

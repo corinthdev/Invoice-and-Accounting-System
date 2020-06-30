@@ -1,0 +1,173 @@
+﻿@model AccountingSystems.Web.Models.DebitMemo.EditDebitMemoViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ReturnCM; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/DebitMemo/EditDebitMemo.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/DebitMemo/EditDebitMemo.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit Debit Memo
+                </h2>
+            </div>
+            <div class="body">
+                <form name="debitMemoEditForm" role="form" class="form-validation" novalidate>
+                    <input type="hidden" name="CreatorUsername" value="@Model.DebitMemoEdit.CreatorUsername" />
+                    <input type="hidden" name="DebitMemoId" value="@Model.DebitMemoEdit.Id" />
+                    <input type="hidden" name="TenantId" value="@Model.DebitMemoEdit.TenantId" />
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <label for="cusCode">Get Stocks From:</label>
+                            <div class="form-line">
+                                <select id="wareH" name="Warehouse" class="validate form-control show-tick">
+                                    <option value="@Model.DebitMemoEdit.Warehouse">@Model.DebitMemoEdit.Warehouse</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="debitMemoNumber">Debit Memo Number</label>
+                            <div class="form-line">
+                                <input id="debitMemoNumber" value="@Model.DebitMemoEdit.DebitMemoCode" name="DebitMemoCode" type="text" class="validate form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <input type="checkbox" value="true" id="isAllowed" class="filled-in" />
+                                <label for="isAllowed">Allowed Edit Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                                <label for="debitMemoDate">Debit Memo Date</label>
+                                <div class="form-line">
+                                    <input id="debitMemoDate" value="@Model.DebitMemoEdit.DebitMemoDate" name="DebitMemoDate" type="text" class="validate form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="supCode">Supplier Code</label>
+                            <div class="form-line">
+                                <input id="supCode" name="SupplierCode" value="@Model.DebitMemoEdit.SupplierCode" placeholder="Supplier Code" type="text" class="validate form-control">
+                                <input id="supId" name="SupplierId" value="@Model.DebitMemoEdit.SupplierId" type="text" class="hidden">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-6">
+                            <label for="supName">Supplier Name</label>
+                            <div class="form-line">
+                                <input id="supName" name="SupplierName" value="@Model.DebitMemoEdit.SupplierName" placeholder="Supplier Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
+                            <label for="supAddress">Supplier Address</label>
+                            <div class="form-line">
+                                <input id="supAddress" value="@Model.DebitMemoEdit.SupplierAddress" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <table id="debitMemoTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" align="center">Code</th>
+                                    <th rowspan="2" align="center" valign="middle">Description</th>
+                                    <th colspan="3"><center>Quantity</center></th>
+                                    <th rowspan="2" align="center">Price</th>
+                                    <th rowspan="2" align="center">Gross</th>
+                                    <th rowspan="2" align="center">Net</th>
+                                    <th rowspan="2" align="center">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th><input id="totalCase" name="TotalCase" value="@Model.DebitMemoEdit.TotalCase" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalBox" name="TotalBox" value="@Model.DebitMemoEdit.TotalBox" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalPcs" name="TotalPiece" value="@Model.DebitMemoEdit.TotalPiece" class="validate form-control" type="text" size="4" /></th>
+                                    <th></th>
+                                    <th><input id="totalGross" name="TotalGross" value="@Model.DebitMemoEdit.TotalGross" class="validate form-control" type="text" size="10" /></th>
+                                    <th><input id="totalNet" name="TotalNet" value="@Model.DebitMemoEdit.TotalNet" class="validate form-control" type="text" size="10" /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{ int i = 0;}
+                                @foreach (var details in Model.DebitMemoEdit.DebitMemoDetails)
+                                {
+                                    <tr id="@i">
+                                        <td><input class="hidden" name="Id" value="@details.Id" /><input class="hidden" name="CreatorUserId" value="@details.CreatorUserId" /><input class="hidden" name="DebitMemoHeaderId" value="@details.DebitMemoHeaderId" /><input class="hidden" name="TenantId" value="@details.TenantId" /><input class='hidden' name='ProductId' value="@details.ProductId" /><input name="Code" value="@details.ProductCode" data-prod-code=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input class="hidden" name="PricePerPiece" value="@details.ProductPricePerPiece" /><input class="hidden" name="ProdCase" value="@details.ProductCases" data-prod-prodcase=" @i" /><input class="hidden" name="ProdPiece" value="@details.ProductPieces" data-prod-prodpiece=" @i" /><input name="ProductItemName" value="@details.ProductItemName" class="validate form-control" style="width: 100%;" size="30" readonly /></td>
+                                        <td><input name="Case" id='cases' data-prod-cases=" @i" value="@details.Case" class="validate form-control" size="4" /></td>
+                                        <td><input name="Box" id='boxes' data-prod-boxes=" @i" value="@details.Box" class="validate form-control" size="4" /></td>
+                                        <td><input name="Piece" id='pieces' data-prod-pieces=" @i" value="@details.Piece" class="validate form-control" size="4" /></td>
+                                        <td><input name="TotalProductPrice" value="@details.TotalProductPrice" data-prod-price=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Gross" value="@details.Gross" data-prod-gross=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Net" value="@details.Net" data-prod-net=" @i" class="validate form-control" size="10" /></td>
+                                        <td><button class='delProd'><i class='material-icons'>delete_sweep</i></button></td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button id="addBtn" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix right">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vatable">Vatable</label>
+                                    <div class="form-line">
+                                        <input id="vatable" name="Vatable" value="@Model.DebitMemoEdit.Vatable" type="text" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vat">12% VAT</label>
+                                    <div class="form-line">
+                                        <input id="vat" type="text" name="TwelvePercentVat" value="@Model.DebitMemoEdit.TwelvePercentVat" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

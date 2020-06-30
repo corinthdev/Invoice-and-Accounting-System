@@ -1,0 +1,171 @@
+﻿@model AccountingSystems.Web.Models.Transaction.CreateUnloadViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ExTruckUnload; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Unload/CreateUnload.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Unload/CreateUnload.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Create Ex - Truck Unload
+                </h2>
+            </div>
+            <div class="body">
+                <form name="unloadCreateForm" role="form" class="form-validation" novalidate>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <input id="userName" name="CreatorUsername" type="text" value="@Model.LoginInformations.User.UserName" class="hidden" readonly>
+                            <label for="unloadNumber">Ex - Truck Unload Number</label>
+                            <div class="form-line">
+                                <input id="unloadNumber" name="UnloadCode" type="text" class="validate form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <input type="checkbox" value="true" id="isAllowed" class="validate filled-in" />
+                                <label for="isAllowed">Allowed Edit Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                                <label for="unloadDate">Unload Date</label>
+                                <div class="form-line">
+                                    <input id="unloadDate" name="UnloadDate" type="text" class="validate form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <label for="vanCode">Van Warehouse Code</label>
+                            <div class="form-line">
+                                <select id="vanCode" name="VanId" size="3" class="validate form-control show-tick" data-live-search="true">
+                                    <option value="">Select Van Warehouse</option>
+                                    @foreach (var van in Model.Vans)
+                                    {
+                                        <option value="@van.Id">@van.Code</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <label for="vanName">Van Name</label>
+                            <div class="form-line">
+                                <input id="vanName" placeholder="Van Name" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <label for="vanDistrict">District</label>
+                            <div class="form-line">
+                                <input id="vanDistrict" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="salesCode">Salesman Code</label>
+                            <div class="form-line">
+                                <input id="salesmanId" name="SalesmanId" type="text" class="hidden" />
+                                <input id="salesCode" placeholder="Salesman Code" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="salesName">Salesman Name</label>
+                            <div class="form-line">
+                                <input id="salesName" placeholder="Salesman Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="plateNumber">Plate Number</label>
+                            <div class="form-line">
+                                <input id="plateNumber" placeholder="Plate Number" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <table id="unloadTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" align="center">Code</th>
+                                    <th rowspan="2" align="center" valign="middle">Description</th>
+                                    <th colspan="3"><center>Quantity</center></th>
+                                    <th rowspan="2" align="center">Price</th>
+                                    <th rowspan="2" align="center">Gross</th>
+                                    <th rowspan="2" align="center">Net</th>
+                                    <th rowspan="2" align="center">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th><input id="totalCase" name="TotalCase" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalBox" name="TotalBox" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalPcs" name="TotalPiece" class="validate form-control" type="text" size="4" /></th>
+                                    <th></th>
+                                    <th><input id="totalGross" name="TotalGross" class="validate form-control" type="text" size="10" /></th>
+                                    <th><input id="totalNet" name="TotalNet" class="validate form-control" type="text" size="10" /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button id="addBtn" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix right">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vatable">Vatable</label>
+                                    <div class="form-line">
+                                        <input id="vatable" name="Vatable" type="text" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vat">12% VAT</label>
+                                    <div class="form-line">
+                                        <input id="vat" type="text" name="TwelvePercentVat" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

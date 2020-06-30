@@ -1,0 +1,234 @@
+﻿@model AccountingSystems.Web.Models.Transaction.CreateCreditMemoViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.CreditMemo; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/CreditMemo/CreateCreditMemo.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/CreditMemo/CreateCreditMemo.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Create Credit Memo
+                </h2>
+            </div>
+            <div class="body">
+                <form name="creditMemoCreateForm" role="form" class="form-validation" novalidate>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <input id="userName" name="CreatorUsername" type="text" value="@Model.LoginInformations.User.UserName" class="hidden" readonly>
+                            <label for="cusCode">Credit Memo Mode</label>
+                            <div class="form-line">
+                                <select name="CreditMemoMode" class="validate form-control show-tick">
+                                    <option value="">Select Mode</option>
+                                    <option value="Good">Good CM</option>
+                                    <option value="Bad">Bad CM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <label for="invCode">Location Site</label>
+                            <div class="form-line">
+                                <select name="SiteCode" class="validate form-control show-tick">
+                                    <option value="">Location Site</option>
+                                    @foreach (var locSite in Model.LocationSites)
+                                    {
+                                <option value="@locSite.SiteCode">@locSite.SiteCode</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="creditMemoNumber">Credit Memo Number</label>
+                            <div class="form-line">
+                                <input id="creditMemoNumber" name="CreditMemoCode" type="text" class="validate form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="invCode">Reference Invoice</label>
+                            <div class="form-line">
+                                <select name="ReferenceInvoiceCode" class="validate form-control show-tick">
+                                    <option value="">Select Doc. No.</option>
+                                    @foreach(var invoice in Model.Invoices)
+                                    {
+                                        <option value="@invoice.InvoiceCode">@invoice.InvoiceCode</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <input type="checkbox" value="true" id="isAllowed" class="validate filled-in" />
+                                <label for="isAllowed">Allowed Edit Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                                <label for="creditMemoDate">Credit Memo Date</label>
+                                <div class="form-line">
+                                    <input id="creditMemoDate" name="CreditMemoDate" type="text" class="validate form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="cusCode">Customer Code</label>
+                            <div class="form-line">
+                                <select id="cusCode" name="CustomerId" size="3" class="validate form-control show-tick" data-live-search="true">
+                                    <option value="">Select Customer</option>
+                                    @foreach (var customer in Model.Customers)
+                                    {
+                                        <option value="@customer.Id">@customer.Code</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-6">
+                            <label for="cusName">Customer Name</label>
+                            <div class="form-line">
+                                <input id="cusName" placeholder="Customer Name" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
+                            <label for="cusAddress">Customer Address</label>
+                            <div class="form-line">
+                                <input id="cusAddress" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="salesCode">Salesman Code</label>
+                            <div class="form-line">
+                                <input id="salesmanId" name="SalesmanId" type="text" class="hidden" />
+                                <input id="salesCode" placeholder="Salesman Code" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="salesName">Salesman Name</label>
+                            <div class="form-line">
+                                <input id="salesName" placeholder="Salesman Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="cusTerms">Terms</label>
+                            <div class="form-line">
+                                <input id="cusTerms" placeholder="Customer Terms" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discone">Customer Disc 1</label>
+                            <div class="form-line">
+                                <input id="discone" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="disctwo">Customer Disc 2</label>
+                            <div class="form-line">
+                                <input id="disctwo" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discthree">Customer Disc 3</label>
+                            <div class="form-line">
+                                <input id="discthree" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discfour">Customer Disc 4</label>
+                            <div class="form-line">
+                                <input id="discfour" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <table id="creditMemoTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" align="center">Code</th>
+                                    <th rowspan="2" align="center" valign="middle">Description</th>
+                                    <th colspan="3"><center>Quantity</center></th>
+                                    <th rowspan="2" align="center">Price Type</th>
+                                    <th rowspan="2" align="center">Price</th>
+                                    <th rowspan="2" align="center">Gross</th>
+                                    <th rowspan="2" align="center">Discount (%)</th>
+                                    <th rowspan="2" align="center">Net</th>
+                                    <th rowspan="2" align="center">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th><input id="totalCase" name="TotalCase" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalBox" name="TotalBox" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalPcs" name="TotalPiece" class="validate form-control" type="text" size="4" /></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><input id="totalGross" name="TotalGross" class="validate form-control" type="text" size="10" /></th>
+                                    <th><input id="totalDiscount" name="TotalDiscount" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalNet" name="TotalNet" class="validate form-control" type="text" size="10" /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button id="addBtn" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix right">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vatable">Vatable</label>
+                                    <div class="form-line">
+                                        <input id="vatable" name="Vatable" type="text" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vat">12% VAT</label>
+                                    <div class="form-line">
+                                        <input id="vat" type="text" name="TwelvePercentVat" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

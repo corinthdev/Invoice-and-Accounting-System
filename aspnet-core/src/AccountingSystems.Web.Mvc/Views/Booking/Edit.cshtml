@@ -1,0 +1,225 @@
+﻿@model AccountingSystems.Web.Models.Bookings.EditBookingViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.Booking; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Booking/EditBooking.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Booking/EditBooking.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit Booking
+                </h2>
+            </div>
+            <div class="body">
+                <form name="bookingEditForm" role="form" class="form-validation" novalidate>
+                    <input type="hidden" name="CreatorUsername" value="@Model.BookingEdit.CreatorUsername" />
+                    <input type="hidden" name="BookingId" value="@Model.BookingEdit.Id" />
+                    <input type="hidden" name="TenantId" value="@Model.BookingEdit.TenantId" />
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="bookingNumber">Booking Number</label>
+                            <div class="form-line">
+                                <input id="bookingNumber" name="BookingCode" value="@Model.BookingEdit.BookingCode" type="text" class="validate form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <input type="checkbox" value="true" id="isAllowed" class="validate filled-in" />
+                                <label for="isAllowed">Allowed Edit Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                                <label for="bookingDate">Booking Date</label>
+                                <div class="form-line">
+                                    <input id="bookingDate" name="BookingDate" value="@Model.BookingEdit.BookingDate" type="text" class="validate form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="cusCode">Customer Code</label>
+                            <div class="form-line">
+                                <input id="cusCode" name="CustomerCode" value="@Model.BookingEdit.CustomerCode" placeholder="Customer Code" type="text" class="validate form-control">
+                                <input id="cusId" name="CustomerId" value="@Model.BookingEdit.CustomerId" type="text" class="hidden">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-6">
+                            <label for="cusName">Customer Name</label>
+                            <div class="form-line">
+                                <input id="cusName" value="@Model.BookingEdit.CustomerName" placeholder="Customer Name" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
+                            <label for="cusAddress">Customer Address</label>
+                            <div class="form-line">
+                                <input id="cusAddress" value="@Model.BookingEdit.CustomerAddress" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="salesCode">Salesman Code</label>
+                            <div class="form-line">
+                                <input id="salesmanId" value="@Model.BookingEdit.SalesmanId" name="SalesmanId" type="text" class="hidden" />
+                                <input id="salesCode" value="@Model.BookingEdit.SalesmanCode" placeholder="Salesman Code" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="salesName">Salesman Name</label>
+                            <div class="form-line">
+                                <input id="salesName" value="@Model.BookingEdit.SalesmanName" placeholder="Salesman Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="cusTerms">Terms</label>
+                            <div class="form-line">
+                                <input id="cusTerms" value="@Model.BookingEdit.CustomerTerms" placeholder="Customer Terms" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discone">Customer Disc 1</label>
+                            <div class="form-line">
+                                <input id="discone" value="@Model.BookingEdit.CustomerDisc1" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="disctwo">Customer Disc 2</label>
+                            <div class="form-line">
+                                <input id="disctwo" value="@Model.BookingEdit.CustomerDisc2" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discthree">Customer Disc 3</label>
+                            <div class="form-line">
+                                <input id="discthree" value="@Model.BookingEdit.CustomerDisc3" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discfour">Customer Disc 4</label>
+                            <div class="form-line">
+                                <input id="discfour" value="@Model.BookingEdit.CustomerDisc4" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <table id="bookingTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" align="center">Code</th>
+                                    <th rowspan="2" align="center" valign="middle">Description</th>
+                                    <th colspan="3"><center>Quantity</center></th>
+                                    <th rowspan="2" align="center">Price Type</th>
+                                    <th rowspan="2" align="center">Price</th>
+                                    <th rowspan="2" align="center">Gross</th>
+                                    <th rowspan="2" align="center">Discount (%)</th>
+                                    <th rowspan="2" align="center">Net</th>
+                                    <th rowspan="2" align="center">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th><input id="totalCase" value="@Model.BookingEdit.TotalCase" name="TotalCase" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalBox" value="@Model.BookingEdit.TotalBox" name="TotalBox" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalPcs" value="@Model.BookingEdit.TotalPiece" name="TotalPiece" class="validate form-control" type="text" size="4" /></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><input id="totalGross" value="@Model.BookingEdit.TotalGross" name="TotalGross" class="validate form-control" type="text" size="10" /></th>
+                                    <th><input id="totalDiscount" value="@Model.BookingEdit.TotalDiscount" name="TotalDiscount" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalNet" value="@Model.BookingEdit.TotalNet" name="TotalNet" class="validate form-control" type="text" size="10" /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{ int i = 0;}
+                                @foreach (var details in Model.BookingEdit.BookingDetails)
+                                {
+                                    <tr id="@i">
+                                        <td><input class="hidden" name="Id" value="@details.Id" /><input class="hidden" name="CreatorUserId" value="@details.CreatorUserId" /><input class="hidden" name="BookingHeaderId" value="@details.BookingHeaderId" /><input class="hidden" name="TenantId" value="@details.TenantId" /><input class='hidden' name='ProductId' value="@details.ProductId" data-prod-idd=" @i" /><input name="Code" value="@details.ProductCode" data-prod-code=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input class="hidden" name="PricePerPiece" value="@details.ProductPricePerPiece" /><input class="hidden" name="ProdCase" value="@details.ProductCases" data-prod-prodcase=" @i" /><input class="hidden" name="ProdPiece" value="@details.ProductPieces" data-prod-prodpiece=" @i" /><input name="ProductItemName" value="@details.ProductItemName" class="validate form-control" style="width: 100%;" size="30" readonly /></td>
+                                        <td><input name="Case" id='cases' data-prod-cases=" @i" value="@details.Case" class="validate form-control" size="4" /></td>
+                                        <td><input name="Box" id='boxes' data-prod-boxes=" @i" value="@details.Box" class="validate form-control" size="4" /></td>
+                                        <td><input name="Piece" id='pieces' data-prod-pieces=" @i" value="@details.Piece" class="validate form-control" size="4" /></td>
+                                        <td>
+                                            <select class='form-control show-tick'>
+                                                <option>A</option>
+                                                <option>B</option>
+                                                <option>C</option>
+                                                <option>D</option>
+                                                <option>E</option>
+                                                <option>F</option>
+                                            </select>
+                                        </td>
+                                        <td><input name="TotalProductPrice" value="@details.TotalProductPrice" data-prod-price=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Gross" value="@details.Gross" data-prod-gross=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Discount" value="@details.Discount" data-prod-discount=" @i" class="validate form-control" size="4" /></td>
+                                        <td><input name="Net" value="@details.Net" data-prod-net=" @i" class="validate form-control" size="10" /></td>
+                                        <td><button class='delProd'><i class='material-icons'>delete_sweep</i></button></td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button id="addBtn" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix right">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vatable">Vatable</label>
+                                    <div class="form-line">
+                                        <input id="vatable" value="@Model.BookingEdit.Vatable" name="Vatable" type="text" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vat">12% VAT</label>
+                                    <div class="form-line">
+                                        <input id="vat" value="@Model.BookingEdit.TwelvePercentVat" type="text" name="TwelvePercentVat" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

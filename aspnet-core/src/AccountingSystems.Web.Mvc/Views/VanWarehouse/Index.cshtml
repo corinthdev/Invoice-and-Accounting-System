@@ -1,0 +1,181 @@
+﻿@model AccountingSystems.Web.Models.Vans.VanListViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.VanInventory; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Vans/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Locations/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>@L("Van")</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/VanWarehouse/Print" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">print</i>
+                                <span>Print Stocks</span>
+                            </a>
+                            <a href="/VanWarehouse/ExportToExcel" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">file_download</i>
+                                Export as Excel file
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table id="vanTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Van Name</th>
+                            <th>Plate Number</th>
+                            <th>District</th>
+                            <th>Salesman</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var van in Model.Vans)
+                        {
+                            <tr>
+                                <td>@van.Code</td>
+                                <td>@van.Name</td>
+                                <td>@van.PlateNumber</td>
+                                <td>@van.District</td>
+                                <td>@van.SalesmanName</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="/VanWarehouse/View?vanId=@van.Id" class="waves-effect waves-block view-invoice"><i class="material-icons">chrome_reader_mode</i>View Stocks</a></li>
+                                        <li><a href="#" class="waves-effect waves-block edit-van" data-van-id="@van.Id" data-toggle="modal" data-target="#VanEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#VanCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="VanCreateModal" tabindex="-1" role="dialog" aria-labelledby="VanCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>Create New Van</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="" role="form" novalidate class="form-validation">
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="Code" type="text" name="Code" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="Code" class="form-label">Van Code</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="Name" type="text" name="Name" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="Name" class="form-label">Van Name</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="PlateNumber" type="text" name="PlateNumber" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="PlateNumber" class="form-label">Plate Number</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="District" type="text" name="District" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="District" class="form-label">District</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <label for="SalesCode">Salesman Code</label>
+                                    <select id="SalesCode" name="SalesmanCode" class="form-control show-tick" data-live-search="true">
+                                        <option value="">Select salesman</option>
+                                        @foreach (var salesman in Model.Salesmen)
+                                        {
+                                            <option value="@salesman.Code">@salesman.Code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="SalesmanName" type="text" name="SalesmanName" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="SalesmanName" class="form-label">Salesman</label>
+                                    <input id="SalesmanId" class="hidden" name="SalesmanId">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="VanEditModal" tabindex="-1" role="dialog" aria-labelledby="VanEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

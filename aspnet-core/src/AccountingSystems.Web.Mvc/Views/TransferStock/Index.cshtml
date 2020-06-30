@@ -1,0 +1,61 @@
+﻿@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.TransferStock; // The menu item will be active for this page.
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("Transfer")
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                    <thead>
+                        <tr>
+                            <th>Transfer Stock Number</th>
+                            <th>From (Source)</th>
+                            <th>To (Destination)</th>
+                            <th>Date</th>
+                            <th>Encoder</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">menu</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#" class="waves-effect waves-block edit-role" data-role-id="" data-toggle="modal" data-target="#RoleEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                    <li><a href="#" class="waves-effect waves-block delete-role" data-role-id="" data-role-name=""><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="/TransferStock/CreateTransferStock" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

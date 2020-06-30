@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>AccountingSystems</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20200120080556_EditedSome_Dto.cs" />
+    <Compile Remove="Migrations\20200120080556_EditedSome_Dto.Designer.cs" />
+    <Compile Remove="Migrations\20200130162625_Edit_Tables.cs" />
+    <Compile Remove="Migrations\20200130162625_Edit_Tables.Designer.cs" />
+    <Compile Remove="Migrations\20200130163425_Edit_Tables.cs" />
+    <Compile Remove="Migrations\20200130163425_Edit_Tables.Designer.cs" />
+    <Compile Remove="Migrations\20200214173736_Edit_REnvironment.cs" />
+    <Compile Remove="Migrations\20200214173736_Edit_REnvironment.Designer.cs" />
+    <Compile Remove="Migrations\20200214174544_Edit_REnvironment.cs" />
+    <Compile Remove="Migrations\20200214174544_Edit_REnvironment.Designer.cs" />
+    <Compile Remove="Migrations\20200214175211_AnythingtoMigrate.cs" />
+    <Compile Remove="Migrations\20200214175211_AnythingtoMigrate.Designer.cs" />
+    <Compile Remove="Migrations\20200214180714_REnvironment_Edit.cs" />
+    <Compile Remove="Migrations\20200214180714_REnvironment_Edit.Designer.cs" />
+    <Compile Remove="Migrations\20200214181617_Changes_SoMany.cs" />
+    <Compile Remove="Migrations\20200214181617_Changes_SoMany.Designer.cs" />
+    <Compile Remove="Migrations\20200307043259_Edit_InvoiceHeader.cs" />
+    <Compile Remove="Migrations\20200307043259_Edit_InvoiceHeader.Designer.cs" />
+    <Compile Remove="Migrations\20200309151256_Check_for_Update.cs" />
+    <Compile Remove="Migrations\20200309151256_Check_for_Update.Designer.cs" />
+    <Compile Remove="Migrations\20200310141934_InvoiceDetails_Test.cs" />
+    <Compile Remove="Migrations\20200310141934_InvoiceDetails_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200310142306_InvoiceDetails_Test.cs" />
+    <Compile Remove="Migrations\20200310142306_InvoiceDetails_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200310142640_Added_InvoiceDetails.cs" />
+    <Compile Remove="Migrations\20200310142640_Added_InvoiceDetails.Designer.cs" />
+    <Compile Remove="Migrations\20200311151254_ForInvoice_Detail.cs" />
+    <Compile Remove="Migrations\20200311151254_ForInvoice_Detail.Designer.cs" />
+    <Compile Remove="Migrations\20200315032208_Booking_Table.cs" />
+    <Compile Remove="Migrations\20200315032208_Booking_Table.Designer.cs" />
+    <Compile Remove="Migrations\20200404180552_Withdrawals_Unloading.cs" />
+    <Compile Remove="Migrations\20200404180552_Withdrawals_Unloading.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="BundlerMinifier.Core" Version="3.2.435" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccountingSystems.Core\AccountingSystems.Core.csproj" />
+  </ItemGroup>
+</Project>

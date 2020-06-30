@@ -1,0 +1,225 @@
+﻿@model AccountingSystems.Web.Models.ExtruckSales.EditExtruckSaleViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ExTruckSales; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/ExtruckSales/EditExtruckSale.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/ExtruckSales/EditExtruckSale.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit Ex-Truck Sales
+                </h2>
+            </div>
+            <div class="body">
+                <form name="extruckSalesEditForm" role="form" class="form-validation" novalidate>
+                    <input type="hidden" name="CreatorUsername" value="@Model.ExtruckSaleEdit.CreatorUsername" />
+                    <input type="hidden" name="ExtruckSaleId" value="@Model.ExtruckSaleEdit.Id" />
+                    <input type="hidden" name="TenantId" value="@Model.ExtruckSaleEdit.TenantId" />
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="extruckNumber">Ex-Truck Sale Number</label>
+                            <div class="form-line">
+                                <input id="extruckNumber" name="ExtruckSaleCode" value="@Model.ExtruckSaleEdit.ExtruckSaleCode" type="text" class="validate form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <input type="checkbox" value="true" id="isAllowed" class="validate filled-in" />
+                                <label for="isAllowed">Allowed Edit Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                                <label for="extruckDate">Ex-Truck Sale Date</label>
+                                <div class="form-line">
+                                    <input id="extruckDate" name="ExtruckSaleDate" value="@Model.ExtruckSaleEdit.ExtruckSaleDate" type="text" class="validate form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="cusCode">Customer Code</label>
+                            <div class="form-line">
+                                <input id="cusCode" name="CustomerCode" value="@Model.ExtruckSaleEdit.CustomerCode" placeholder="Customer Code" type="text" class="validate form-control">
+                                <input id="cusId" name="CustomerId" value="@Model.ExtruckSaleEdit.CustomerId" type="text" class="hidden">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-6">
+                            <label for="cusName">Customer Name</label>
+                            <div class="form-line">
+                                <input id="cusName" value="@Model.ExtruckSaleEdit.CustomerName" placeholder="Customer Name" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
+                            <label for="cusAddress">Customer Address</label>
+                            <div class="form-line">
+                                <input id="cusAddress" value="@Model.ExtruckSaleEdit.CustomerAddress" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="salesCode">Salesman Code</label>
+                            <div class="form-line">
+                                <input id="salesmanId" value="@Model.ExtruckSaleEdit.SalesmanId" name="SalesmanId" type="text" class="hidden" />
+                                <input id="salesCode" value="@Model.ExtruckSaleEdit.SalesmanCode" placeholder="Salesman Code" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="salesName">Salesman Name</label>
+                            <div class="form-line">
+                                <input id="salesName" value="@Model.ExtruckSaleEdit.SalesmanName" placeholder="Salesman Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="cusTerms">Terms</label>
+                            <div class="form-line">
+                                <input id="cusTerms" value="@Model.ExtruckSaleEdit.CustomerTerms" placeholder="Customer Terms" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discone">Customer Disc 1</label>
+                            <div class="form-line">
+                                <input id="discone" value="@Model.ExtruckSaleEdit.CustomerDisc1" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="disctwo">Customer Disc 2</label>
+                            <div class="form-line">
+                                <input id="disctwo" value="@Model.ExtruckSaleEdit.CustomerDisc2" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discthree">Customer Disc 3</label>
+                            <div class="form-line">
+                                <input id="discthree" value="@Model.ExtruckSaleEdit.CustomerDisc3" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="discfour">Customer Disc 4</label>
+                            <div class="form-line">
+                                <input id="discfour" value="@Model.ExtruckSaleEdit.CustomerDisc4" type="text" placeholder="0.00%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <table id="extruckSalesTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" align="center">Code</th>
+                                    <th rowspan="2" align="center" valign="middle">Description</th>
+                                    <th colspan="3"><center>Quantity</center></th>
+                                    <th rowspan="2" align="center">Price Type</th>
+                                    <th rowspan="2" align="center">Price</th>
+                                    <th rowspan="2" align="center">Gross</th>
+                                    <th rowspan="2" align="center">Discount (%)</th>
+                                    <th rowspan="2" align="center">Net</th>
+                                    <th rowspan="2" align="center">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th><input id="totalCase" value="@Model.ExtruckSaleEdit.TotalCase" name="TotalCase" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalBox" value="@Model.ExtruckSaleEdit.TotalBox" name="TotalBox" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalPcs" value="@Model.ExtruckSaleEdit.TotalPiece" name="TotalPiece" class="validate form-control" type="text" size="4" /></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><input id="totalGross" value="@Model.ExtruckSaleEdit.TotalGross" name="TotalGross" class="validate form-control" type="text" size="10" /></th>
+                                    <th><input id="totalDiscount" value="@Model.ExtruckSaleEdit.TotalDiscount" name="TotalDiscount" class="validate form-control" type="text" size="4" /></th>
+                                    <th><input id="totalNet" value="@Model.ExtruckSaleEdit.TotalNet" name="TotalNet" class="validate form-control" type="text" size="10" /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{ int i = 0;}
+                                @foreach (var details in Model.ExtruckSaleEdit.ExtruckSaleDetails)
+                                {
+                                    <tr id="@i">
+                                        <td><input class="hidden" name="Id" value="@details.Id" /><input class="hidden" name="CreatorUserId" value="@details.CreatorUserId" /><input class="hidden" name="ExtruckSaleHeaderId" value="@details.ExtruckSaleHeaderId" /><input class="hidden" name="TenantId" value="@details.TenantId" /><input class='hidden' name='ProductId' value="@details.ProductId" /><input name="Code" value="@details.ProductCode" data-prod-code=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="ProductItemName" value="@details.ProductItemName" class="validate form-control" style="width: 100%;" size="30" readonly /></td>
+                                        <td><input name="Case" id='cases' data-prod-cases=" @i" value="@details.Case" class="validate form-control" size="4" /></td>
+                                        <td><input name="Box" id='boxes' data-prod-boxes=" @i" value="@details.Box" class="validate form-control" size="4" /></td>
+                                        <td><input name="Piece" id='pieces' data-prod-pieces=" @i" value="@details.Piece" class="validate form-control" size="4" /></td>
+                                        <td>
+                                            <select class='form-control show-tick'>
+                                                <option>A</option>
+                                                <option>B</option>
+                                                <option>C</option>
+                                                <option>D</option>
+                                                <option>E</option>
+                                                <option>F</option>
+                                            </select>
+                                        </td>
+                                        <td><input name="TotalProductPrice" value="@details.TotalProductPrice" data-prod-price=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Gross" value="@details.Gross" data-prod-gross=" @i" class="validate form-control" size="10" /></td>
+                                        <td><input name="Discount" value="@details.Discount" data-prod-discount=" @i" class="validate form-control" size="4" /></td>
+                                        <td><input name="Net" value="@details.Net" data-prod-net=" @i" class="validate form-control" size="10" /></td>
+                                        <td><button class='delProd'><i class='material-icons'>delete_sweep</i></button></td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button id="addBtn" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row clearfix right">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vatable">Vatable</label>
+                                    <div class="form-line">
+                                        <input id="vatable" value="@Model.ExtruckSaleEdit.Vatable" name="Vatable" type="text" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="vat">12% VAT</label>
+                                    <div class="form-line">
+                                        <input id="vat" value="@Model.ExtruckSaleEdit.TwelvePercentVat" type="text" name="TwelvePercentVat" placeholder="0.00" class="validate form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,86 @@
+﻿@model AccountingSystems.Web.Models.Withdrawals.WithdrawalListViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ExTruckWith; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Withdrawal/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Withdrawal/Index.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>@L("ExTruckWith")</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/Withdrawals/ExportToExcel" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">file_download</i>
+                                Export as Excel file
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table id="withdrawalListTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Withdrawal Order Number</th>
+                            <th>Van Name</th>
+                            <th>District</th>
+                            <th>Salesman</th>
+                            <th>Date</th>
+                            <th>Encoder</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var withdrawals in Model.Withdrawals)
+                        {
+                        <tr>
+                            <td>@withdrawals.WithdrawalCode</td>
+                            <td>@withdrawals.VanName</td>
+                            <td>@withdrawals.VanDistrict</td>
+                            <td>@withdrawals.SalesmanName</td>
+                            <td>@withdrawals.CreationTime</td>
+                            <td>@withdrawals.CreatorUsername</td>
+                            <td class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">menu</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="/Withdrawals/View?withdrawalId=@withdrawals.Id" class="waves-effect waves-block"><i class="material-icons">chrome_reader_mode</i>View</a></li>
+                                    <li><a href="/Withdrawals/Edit?withdrawalId=@withdrawals.Id" class="waves-effect waves-block"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Withdrawals/Create" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+﻿@model AccountingSystems.Web.Models.Invoice.ViewInvoiceViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.Invoice; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Invoice/ViewInvoice.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Invoice/ViewInvoice.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>View Invoice</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/Invoice/Print?invoiceId=@Model.EditInvoice.EditInvoice.Id" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">print</i>
+                                <span>Print Invoice</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div id="panelContents" class="printme">
+                    <div class="row clearfix">
+                        <div class="col-md-6 left">
+                            <label>@Model.EditInvoice.EditInvoice.InvoiceCode</label>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            Customer Code : @Model.EditInvoice.EditInvoice.CustomerCode
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                Customer Name : @Model.EditInvoice.EditInvoice.CustomerName
+                            </div>
+                            <div class="col-md-12">
+                                Bill to : @Model.EditInvoice.EditInvoice.CustomerAddress
+                            </div>
+                            <div class="col-md-12">
+                                Ship to : @Model.EditInvoice.EditInvoice.CustomerAddress
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <p class="pull-right">Credited: @Model.EditInvoice.EditInvoice.CreationTime</p>
+                            </div>
+                            <div class="col-md-12 pull-right">
+                                <p class="pull-right">Payment Terms : @Model.EditInvoice.EditInvoice.CustomerTerms</p>
+                            </div>
+                            <div class="col-md-12 pull-right">
+                                <p class="pull-right">Salesman : @Model.EditInvoice.EditInvoice.SalesmanName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <table id="invoiceTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="1" align="center">Code</th>
+                                    <th rowspan="1" align="center" valign="middle">Description</th>
+                                    <th>Case</th>
+                                    <th>Box</th>
+                                    <th>PCS</th>
+                                    <th rowspan="1" align="center">Discount (%)</th>
+                                    <th rowspan="1" align="center">Price</th>
+                                    <th rowspan="1" align="center">Gross</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int i = 0;}
+                                @foreach (var details in Model.EditInvoice.EditInvoice.InvoiceDetails)
+                                {
+                                    <tr id="@i">
+                                        <td id="prodCode">@details.ProductCode</td>
+                                        <td>@details.ProductItemName</td>
+                                        <td>@details.Case</td>
+                                        <td>@details.Box</td>
+                                        <td>@details.Piece</td>
+                                        <td>@details.Discount</td>
+                                        <td>@details.TotalProductPrice</td>
+                                        <td>@details.Gross</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div style="border:solid" class="col-md-6">
+                                Total Article: <p id="article"></p>
+                                Cases = @Model.EditInvoice.EditInvoice.TotalCase, Box = @Model.EditInvoice.EditInvoice.TotalBox, Pieces = @Model.EditInvoice.EditInvoice.TotalPiece
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6"><strong>Total:</strong></div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.TotalGross</p></div>
+                                    <div class="col-md-6"><strong>Discount:</strong> </div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.TotalDiscount</p></div>
+                                    <hr style="display: block; overflow: hidden; border-style: inset; border-width: 1px;">
+                                    <div class="col-md-6"><strong>Net Amount:</strong> </div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.TotalNet</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-6"><strong>Vatable Sales:</strong></div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.Vatable</p></div>
+                                    <div class="col-md-6"><strong>Vat Amount :</strong></div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.TwelvePercentVat</p></div>
+                                    <hr style="display: block; overflow: hidden; border-style: inset; border-width: 1px;">
+                                    <div class="col-md-6"><strong>Total Amount due:</strong> </div>
+                                    <div class="col-md-6"><p class="pull-right">@Model.EditInvoice.EditInvoice.TotalNet</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

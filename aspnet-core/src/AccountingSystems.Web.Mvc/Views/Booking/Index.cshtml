@@ -1,0 +1,88 @@
+﻿@model AccountingSystems.Web.Models.Bookings.BookingListViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.Booking; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Booking/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Booking/Index.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>@L("Booking")</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/Booking/ExportToExcel" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">file_download</i>
+                                Export as Excel file
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table id="bookingListTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Booking Number</th>
+                            <th>Customer Name</th>
+                            <th>Address</th>
+                            <th>Salesman Name</th>
+                            <th>Date</th>
+                            <th>Encoder</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bookings in Model.BookingLists)
+                        {
+                            <tr>
+                                <td>@bookings.BookingCode</td>
+                                <td>@bookings.CustomerName</td>
+                                <td>@bookings.CustomerHouseNumber, @bookings.CustomerStreet, @bookings.CustomerBarangay, @bookings.CustomerMunicipality, @bookings.CustomerProvince</td>
+                                <td>@bookings.SalesmanName</td>
+                                <td>@bookings.BookingDate</td>
+                                <td>@bookings.CreatorUsername</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="/Booking/View?bookingId=@bookings.Id" class="waves-effect waves-block view-booking"><i class="material-icons">chrome_reader_mode</i>View</a></li>
+                                        <li><a href="/Booking/Edit?bookingId=@bookings.Id" class="waves-effect waves-block edit-booking"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block delete-booking" data-booking-id="@bookings.Id" data-booking-name="@bookings.BookingCode"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Booking/Create" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

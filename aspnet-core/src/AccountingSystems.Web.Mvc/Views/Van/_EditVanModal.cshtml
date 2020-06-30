@@ -1,0 +1,84 @@
+﻿@using AccountingSystems.Web.Models.Common.Modals
+@model AccountingSystems.Web.Models.Vans.EditVanModalViewModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditVan")))
+
+<div class="modal-body">
+    <form name="VanEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.VanEdit.VanEdit.Id" />
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="locationcode" type="text" name="Code" value="@Model.VanEdit.VanEdit.Code" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="locationcode" class="form-label">Van Code</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="Name" type="text" name="Name" value="@Model.VanEdit.VanEdit.Name" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="Name" class="form-label">Van Name</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="PlateNumber" type="text" name="PlateNumber" value="@Model.VanEdit.VanEdit.PlateNumber" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="PlateNumber" class="form-label">Plate Number</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="District" type="text" name="District" value="@Model.VanEdit.VanEdit.District" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="District" class="form-label">District</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="SalesCode">Salesman Code</label>
+                        <select id="SalesCodeEdit" name="SalesmanCode"class="form-control show-tick" data-live-search="true">
+                            <option value="">Select salesman</option>
+                            <option selected value="@Model.VanEdit.VanEdit.SalesmanCode">@Model.VanEdit.VanEdit.SalesmanCode</option>
+                            @foreach (var salesman in Model.Salesmen)
+                            {
+                                <option value="@salesman.Code">@salesman.Code</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="SalesmanNameEdit" type="text" name="SalesmanName" value="@Model.VanEdit.VanEdit.SalesmanName" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="SalesmanNameEdit" class="form-label">Salesman Name</label>
+                        <input id="SalesmanIdEdit" class="hidden" name="SalesmanId">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+<script src="~/view-resources/Views/Vans/_EditVanModal.js" asp-append-version="true"></script>

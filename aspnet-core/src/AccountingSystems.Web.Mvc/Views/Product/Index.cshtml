@@ -1,0 +1,340 @@
+﻿@model AccountingSystems.Web.Models.Products.ProductListViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.Product; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Products/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Products/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>@L("Product")</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/Product/Print" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">print</i>
+                                <span>Print Product</span>
+                            </a>
+                            <a href="/Product/ExportToExcel" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">file_download</i>
+                                Export as Excel file
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table id="productTable" class="table table-bordered table-striped table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Item Name</th>
+                            <th>Net Price</th>
+                            <th>Price Per Box</th>
+                            <th>Price Per Piece</th>
+                            <th>Brand</th>
+                            <th>Supplier</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prods in Model.ProductLists)
+                        {
+                        <tr>
+                            <td>@prods.Code</td>
+                            <td>@prods.ItemName</td>
+                            <td>@prods.Net</td>
+                            <td>@prods.PricePerBox</td>
+                            <td>@prods.PricePerPiece</td>
+                            <td>@prods.Brand</td>
+                            <td>@prods.SuppliersName</td>
+                            <td class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">menu</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#" class="waves-effect waves-block edit-product" data-product-id="@prods.Id" data-toggle="modal" data-target="#ProductEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                    <li><a href="#" class="waves-effect waves-block delete-product" data-product-id="@prods.Id" data-product-name="@prods.ItemName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#ProductCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ProductCreateModal" tabindex="-1" role="dialog" aria-labelledby="ProductCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>Create New Product</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="userCreateForm" role="form" novalidate class="form-validation">
+                    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                        <li id="firstTab" role="presentation" class="active"><a href="#create-product-details" data-toggle="tab">Product Details</a></li>
+                        <li id="nextTab" role="presentation"><a href="#create-other-details" data-toggle="tab">Other Details</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-product-details">
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label for="SuppCode">Supplier Code</label>
+                                            <select id="SuppCode" name="SupplierCode" class="form-control show-tick" data-live-search="true">
+                                                <option value="">Select supplier</option>
+                                                @foreach (var supplier in Model.SupplierLists)
+                                                {
+                                                    <option value="@supplier.Code">@supplier.Code</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="SupplierName" type="text" name="SupplierName" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="SupplierName" class="form-label">Supplier Name</label>
+                                            <input id="SupplierId" class="hidden" name="SupplierId">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Code" type="text" name="Code" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Code" class="form-label">Product Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="ItemName" type="text" name="ItemName" required minlength="1" class="validate form-control">
+                                            <label for="ItemName" class="form-label">Product Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="GrossPrice" type="text" name="GrossPrice" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="GrossPrice" class="form-label">Gross Price</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Freight" type="text" name="Freight" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Freight" class="form-label">Freight</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Discount" type="text" name="Discount" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Discount" class="form-label">Discount</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Vat" type="text" name="Vat" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Vat" class="form-label">Vat</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PercentagePriceMargin" type="text" name="PercentagePriceMargin" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PercentagePriceMargin" class="form-label">Percentage Price Margin</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceMargin" type="text" name="PriceMargin" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceMargin" class="form-label">Price Margin</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                                <a id="nextBtn" role="presentation" href="#create-other-details" data-toggle="tab" class="btn btn-primary waves-effect">Next</a>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane animated fadeIn" id="create-other-details">
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceA" type="text" name="PriceA" value="0.00" maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceA" class="form-label">Price A</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceB" type="text" name="PriceB" value="0.00" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceB" class="form-label">Price B</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceC" type="text" name="PriceC" value="0.00" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceC" class="form-label">Price C</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceD" type="text" name="PriceD" value="0.00" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceD" class="form-label">Price D</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceE" type="text" name="PriceE" value="0.00" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceE" class="form-label">Price E</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="PriceF" type="text" name="PriceF" value="0.00" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="PriceF" class="form-label">Price F</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Brand" type="text" name="Brand" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Brand" class="form-label">Brand/Category</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Cases" type="text" name="Cases" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Cases" class="form-label">Cases</label>
+                                            <input id="PricePerPiece" type="text" name="PricePerPiece" required maxlength="32" minlength="1" class="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Box" type="text" name="Box" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Box" class="form-label">Box</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="Pieces" type="text" name="Pieces" required maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="Pieces" class="form-label">Pcs</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="BarcodeCase" type="text" name="BarcodeCase" maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="BarcodeCase" class="form-label">Barcode Case</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="BarcodeItem" type="text" name="BarcodeItem" maxlength="32" minlength="1" class="validate form-control">
+                                            <label for="BarcodeItem" class="form-label">Barcode Item</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                                <button type="submit" class="btn btn-primary waves-effect">@("Save")</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ProductEditModal" tabindex="-1" role="dialog" aria-labelledby="ProductEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

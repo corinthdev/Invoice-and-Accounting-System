@@ -1,0 +1,368 @@
+﻿@model AccountingSystems.Web.Models.HomePage.HomeViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.Home; // The menu item will be active for this page.
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" asp-append-version="true" />
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/lib/jquery-countTo/jquery.countTo.js" asp-append-version="true"></script>
+        <script src="~/lib/raphael/raphael.js" asp-append-version="true"></script>
+        <script src="~/lib/morris.js/morris.js" asp-append-version="true"></script>
+        <script src="~/lib/chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.resize.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.pie.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.categories.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.time.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/Home/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/_Bundles/home-index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<!-- Widgets -->
+<div class="row clearfix">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h1>Dashboard</h1>
+        </div>
+        <!--Stocks-->
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-red">dashboard</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Main Warehouse Stocks</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.TotalStocks.AllPieces" data-speed="1000" data-fresh-interval="20">@Model.TotalStocks.AllPieces</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-yellow">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Amount</div>
+                            <div class="number" data-from="0" data-to="@Math.Round(@Model.TotalStocks.AllAmount, 2)" data-speed="1000" data-fresh-interval="20">Php @Math.Round(@Model.TotalStocks.AllAmount, 2)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-purple">dashboard</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Bad Stocks</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.BadStocks.AllPieces" data-speed="1000" data-fresh-interval="20">@Model.BadStocks.AllPieces</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-yellow">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Amount</div>
+                            <div class="number" data-from="0" data-to="@Math.Round(@Model.BadStocks.AllAmount, 2)" data-speed="1500" data-fresh-interval="20">Php @Math.Round(@Model.BadStocks.AllAmount, 2)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-red">face</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Salesman</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.Salesman.TotalSalesman" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-indigo">face</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Customers</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.Customers.TotalCustomer" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-purple">shopping_cart</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Products</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.Products.TotalProduct" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-deep-purple">contacts</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Supplier</div>
+                            <div class="number count-to" data-from="0" data-to="@Model.Suppliers.TotalSupplier" data-speed="1500" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--EndStocks-->
+        <!--VanWarehouse-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="body bg-teal">
+                    <div class="font-bold m-b--35">Van Warehouse</div>
+                    <div style="overflow-y: scroll; height: 200px;">
+                        <ul class="dashboard-stat-list">
+                            @foreach (var vans in Model.Vans)
+                            {
+                                <li>
+                                    @vans.Name
+                                    @foreach (var tstocks in Model.VanStocks)
+                                    {
+                                        if (vans.Id == tstocks.VanName)
+                                        {
+                                            <span class="pull-right"><b>@tstocks.AllPieces</b> stocks <b>Php @Math.Round(@tstocks.AllAmount, 2)</b></span>
+                                        }
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--EndVanWarehouse-->
+        <!-- Recent Invoice -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-6">
+                                <h2>Recent Invoice</h2>
+                            </div>
+                        </div>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body table-responsive">
+                        <table id="invoiceListTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Invoice Number</th>
+                                    <th>Customer Name</th>
+                                    <th>Address</th>
+                                    <th>Salesman Name</th>
+                                    <th>Date</th>
+                                    <th>Encoder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var invoices in Model.InvoiceLists)
+                                {
+                                    <tr>
+                                        <td>@invoices.InvoiceCode</td>
+                                        <td>@invoices.CustomerName</td>
+                                        <td>@invoices.CustomerHouseNumber, @invoices.CustomerStreet, @invoices.CustomerBarangay, @invoices.CustomerMunicipality, @invoices.CustomerProvince</td>
+                                        <td>@invoices.SalesmanName</td>
+                                        <td>@invoices.CreationTime</td>
+                                        <td>@invoices.CreatorUsername</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #End# Recent Invoice -->
+        <!-- Recent CM -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-6">
+                                <h2>Recent Credit Memo</h2>
+                            </div>
+                        </div>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body table-responsive">
+                        <table id="creditMemoListTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Credit Memo Number</th>
+                                    <th>Customer Name</th>
+                                    <th>Address</th>
+                                    <th>Salesman Name</th>
+                                    <th>Date</th>
+                                    <th>Encoder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var creditmemos in Model.CreditMemos)
+                                {
+                                    <tr>
+                                        <td>@creditmemos.CreditMemoCode</td>
+                                        <td>@creditmemos.CustomerName</td>
+                                        <td>@creditmemos.CustomerHouseNumber, @creditmemos.CustomerStreet, @creditmemos.CustomerBarangay, @creditmemos.CustomerMunicipality, @creditmemos.CustomerProvince</td>
+                                        <td>@creditmemos.SalesmanName</td>
+                                        <td>@creditmemos.CreditMemoDate</td>
+                                        <td>@creditmemos.CreatorUsername</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Recent CM -->
+        <!-- Recent PO -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-6">
+                                <h2>Recent Purchase Order</h2>
+                            </div>
+                        </div>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body table-responsive">
+                        <table id="purchaseOrderListTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Purchase Order Number</th>
+                                    <th>Supplier Name</th>
+                                    <th>Address</th>
+                                    <th>Date</th>
+                                    <th>Encoder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var purchaseoder in Model.PurchaseOrders)
+                                {
+                                    <tr>
+                                        <td>@purchaseoder.PurchaseOrderCode</td>
+                                        <td>@purchaseoder.SupplierName</td>
+                                        <td>@purchaseoder.SupplierAddress</td>
+                                        <td>@purchaseoder.PurchaseOrderDate</td>
+                                        <td>@purchaseoder.CreatorUsername</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Recent PO -->
+        <!-- Recent DM -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-6">
+                                <h2>Recent Debit Memo</h2>
+                            </div>
+                        </div>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body table-responsive">
+                        <table id="debitMemoListTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Debit Memo Number</th>
+                                    <th>Supplier Name</th>
+                                    <th>Address</th>
+                                    <th>Date</th>
+                                    <th>Encoder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var debitMemo in Model.DebitMemos)
+                                {
+                                    <tr>
+                                        <td>@debitMemo.DebitMemoCode</td>
+                                        <td>@debitMemo.SupplierName</td>
+                                        <td>@debitMemo.SupplierAddress</td>
+                                        <td>@debitMemo.DebitMemoDate</td>
+                                        <td>@debitMemo.CreatorUsername</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# DebitMemo -->
+    </div>
+</div>
+<!-- #END# Widgets -->
+<!-- CPU Usage -->
+<!-- #END# CPU Usage -->

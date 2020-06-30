@@ -1,0 +1,111 @@
+﻿@model AccountingSystems.Web.Models.ExtruckSales.ViewExtruckSaleViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ExTruckSales; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/ExtruckSales/ViewExtruckSale.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/ExtruckSales/ViewExtruckSale.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    View Invoice
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="right">
+                        <label>@Model.ExtruckSaleEdit.ExtruckSaleCode</label>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div>
+                        Customer Code : @Model.ExtruckSaleEdit.CustomerCode
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        Customer Name : @Model.ExtruckSaleEdit.CustomerName
+                    </div>
+                    <div class="col-md-6">
+                        Credited: @Model.ExtruckSaleEdit.ExtruckSaleDate
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        Bill to : @Model.ExtruckSaleEdit.CustomerAddress
+                    </div>
+                    <div class="col-md-6">
+                        Payment Terms : @Model.ExtruckSaleEdit.CustomerTerms
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        Ship to : @Model.ExtruckSaleEdit.CustomerAddress
+                    </div>
+                    <div class="col-md-6">
+                        Salesman : @Model.ExtruckSaleEdit.SalesmanName
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <table id="invoiceTable" class="table">
+                        <thead>
+                            <tr>
+                                <th rowspan="1" align="center">Code</th>
+                                <th rowspan="1" align="center" valign="middle">Description</th>
+                                <th>Case</th>
+                                <th>Box</th>
+                                <th>PCS</th>
+                                <th rowspan="1" align="center">Discount (%)</th>
+                                <th rowspan="1" align="center">Price</th>
+                                <th rowspan="1" align="center">Gross</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0;}
+                            @foreach (var details in Model.ExtruckSaleEdit.ExtruckSaleDetails)
+                            {
+                                <tr id="@i">
+                                    <td id="prodCode">@details.ProductCode</td>
+                                    <td>@details.ProductItemName</td>
+                                    <td>@details.Case</td>
+                                    <td>@details.Box</td>
+                                    <td>@details.Piece</td>
+                                    <td>@details.Discount</td>
+                                    <td>@details.TotalProductPrice</td>
+                                    <td>@details.Gross</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        Total Article: <p id="article"></p>
+                        Cases = @Model.ExtruckSaleEdit.TotalCase, Box = @Model.ExtruckSaleEdit.TotalBox, Pieces = @Model.ExtruckSaleEdit.TotalPiece
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="right col-md-6 col-sm-6 col-xs-12">
+                            <div>Total: @Model.ExtruckSaleEdit.TotalGross</div>
+                            <div>Discount: @Model.ExtruckSaleEdit.TotalDiscount</div>
+                            <div>Net Amount: @Model.ExtruckSaleEdit.TotalNet</div>
+                            <div>Vatable Sales: @Model.ExtruckSaleEdit.Vatable</div>
+                            <div>Vat Amount : @Model.ExtruckSaleEdit.TwelvePercentVat</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

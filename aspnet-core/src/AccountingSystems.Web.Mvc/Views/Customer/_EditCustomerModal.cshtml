@@ -1,0 +1,253 @@
+﻿@using AccountingSystems.Web.Models.Common.Modals
+@model AccountingSystems.Web.Models.Customers.EditCustomerModalViewModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditCustomer")))
+
+<div class="modal-body">
+    <form name="CustomerEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.CustomerEdit.CustomerEdit.Id" />
+        <input type="hidden" name="TenantId" value="@Model.CustomerEdit.CustomerEdit.TenantId" />
+        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            <li id="firstTabEdit" role="presentation" class="active"><a href="#create-customer-detailsedit" data-toggle="tab">Customer Details</a></li>
+            <li id="nextTabEdit" role="presentation"><a href="#create-customer-termsedit" data-toggle="tab">Customer Terms</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-customer-detailsedit">
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Code" type="text" name="Code" value="@Model.CustomerEdit.CustomerEdit.Code" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Code" class="form-label">Customer Code</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PrincipalCode1" type="text" name="PrincipalCode1" value="@Model.CustomerEdit.CustomerEdit.PrincipalCode1" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PrincipalCode1" class="form-label">Principal Code 1</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="PricipalCode2" type="text" name="PrincipalCode2" value="@Model.CustomerEdit.CustomerEdit.PrincipalCode2" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="PricipalCode2" class="form-label">Pricipal Code 2</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Name" type="text" name="Name" value="@Model.CustomerEdit.CustomerEdit.Name" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Name" class="form-label">Registered Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="HouseNumber" type="text" name="HouseNumber" value="@Model.CustomerEdit.CustomerEdit.HouseNumber" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="HouseNumber" class="form-label">House Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Street" type="text" name="Street" value="@Model.CustomerEdit.CustomerEdit.Street" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Street" class="form-label">Street</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Barangay" type="text" name="Barangay" value="@Model.CustomerEdit.CustomerEdit.Barangay" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Barangay" class="form-label">Barangay</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Municipality" type="text" name="Municipality" value="@Model.CustomerEdit.CustomerEdit.Municipality" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Municipality" class="form-label">Municipality</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Province" type="text" name="Province" value="@Model.CustomerEdit.CustomerEdit.Province" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Province" class="form-label">Province</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="ContactPerson" type="text" name="ContactPerson" value="@Model.CustomerEdit.CustomerEdit.ContactPerson" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="ContactPerson" class="form-label">Contact Person</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Telephone" type="text" name="Telephone" value="@Model.CustomerEdit.CustomerEdit.Telephone" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Telephone" class="form-label">Contact Number</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                    <a id="nextBtnEdit" role="presentation" href="#create-customer-termsedit" data-toggle="tab" class="btn btn-primary waves-effect">Next</a>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane animated fadeIn" id="create-customer-termsedit">
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label for="salemanCodeEdit">Salesman Code</label>
+                                <select id="salemanCodeEdit" name="SalesmanCode" required class="form-control show-tick" data-live-search="true">
+                                    <option value="">Select Salesman</option>
+                                    <option selected value="@Model.CustomerEdit.CustomerEdit.SalesmanCode">@Model.CustomerEdit.CustomerEdit.SalesmanCode</option>
+                                    @foreach (var salesman in Model.Salesmen)
+                                    {
+                                        <option value="@salesman.Code">@salesman.Code</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="SalesmanNameEdit" type="text" name="SalesmanName" value="@Model.CustomerEdit.CustomerEdit.SalesmanName" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="SalesmanNameEdit" class="form-label">Salesman Name</label>
+                                <input id="SalesmanIdEdit" class="hidden" name="SalesmansId" value="@Model.CustomerEdit.CustomerEdit.SalesmansId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label for="Terms" class="form-label">Terms</label>
+                                <select id="Terms" name="Terms" required class="form-control show-tick">
+                                    <option value="@Model.CustomerEdit.CustomerEdit.Terms">@Model.CustomerEdit.CustomerEdit.Terms</option>
+                                    <option value="COD">Cash on Delivery</option>
+                                    <option value="CWR">Cash with Order</option>
+                                    <option value="7D">7D</option>
+                                    <option value="15D">15D</option>
+                                    <option value="30D">30D</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label for="KindofBranch">Kind of Branch</label>
+                                <select id="KindofBranch" name="KindofBranch" required class="form-control show-tick" data-live-search="true">
+                                    <option value="">Select Branch</option>
+                                    <option selected value="@Model.CustomerEdit.CustomerEdit.KindofBranch">@Model.CustomerEdit.CustomerEdit.KindofBranch</option>
+                                    @foreach(var retailenv in Model.RetailEnvironmentLists)
+                                    {
+                                        <option value="@retailenv.Description">@retailenv.Description</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Disc1" type="text" name="Disc1" value="@Model.CustomerEdit.CustomerEdit.Disc1" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Disc1" class="form-label">Disc1%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Disc2" type="text" name="Disc2" value="@Model.CustomerEdit.CustomerEdit.Disc2" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Disc2" class="form-label">Disc2%</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Disc3" type="text" name="Disc3" value="@Model.CustomerEdit.CustomerEdit.Disc3" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Disc3" class="form-label">Disc3%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Disc4" type="text" name="Disc4" value="@Model.CustomerEdit.CustomerEdit.Disc4" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="Disc4" class="form-label">Disc4%</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="CreditLimit" type="text" name="CreditLimit" value="@Model.CustomerEdit.CustomerEdit.CreditLimit" required maxlength="32" minlength="1" class="validate form-control">
+                                <label for="CreditLimit" class="form-label">Credit Limit</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="checkbox" name="IsActive" value="true" @(Model.CustomerEdit.CustomerEdit.IsActive ? "checked" : "") id="CreateCustomerIsActive" class="filled-in" checked />
+                                <label for="CreateCustomerIsActive">@L("IsActive")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-button waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                    <button type="button" class="btn btn-primary save-button waves-effect">@L("Save")</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="~/view-resources/Views/Customers/_EditCustomerModal.js" asp-append-version="true"></script>

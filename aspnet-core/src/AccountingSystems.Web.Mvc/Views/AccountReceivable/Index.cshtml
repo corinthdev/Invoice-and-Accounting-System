@@ -1,0 +1,91 @@
+﻿@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.AR; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/AccountReceivable/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/AccountReceivable/Index.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>Account Receivables</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/Invoice/ExportToExcel" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">file_download</i>
+                                Export as Excel file
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="cusCode">Salesman Code</label>
+                            <div class="form-line">
+                                <select id="salesmcode" name="SalesmanId" size="3" class="validate form-control show-tick" data-live-search="true">
+                                    <option value="">Select Salesman</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="salesm">Salesman Name</label>
+                            <div class="form-line">
+                                <input id="salesm" placeholder="Salesman Name" type="text" class="validate form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                </div>
+            </div>
+            <div class="body table-responsive">
+                <table id="invoiceListTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Invoice Number</th>
+                            <th>Customer Code</th>
+                            <th>Customer Name</th>
+                            <th>Inv Date</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Balance</th>
+                            <th>Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+                <a href="/Invoice/Create" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

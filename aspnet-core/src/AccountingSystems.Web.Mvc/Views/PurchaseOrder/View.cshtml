@@ -1,0 +1,136 @@
+﻿@model AccountingSystems.Web.Models.PurchaseOrder.ViewPurchaseOrderViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.PurchaseOrder; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/PurchaseOrder/ViewPurchaseOrder.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/PurchaseOrder/ViewPurchaseOrder.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>View Purchase Order</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 align-right">
+                        <div class="switch panel-switch-btn">
+                            <a href="/PurchaseOrder/Print?purchaseOrderId=@Model.PurchaseOrderEdit.Id" style="margin-right:20px;" class="btn btn-lg btn-primary waves-effect waves-float pull-right">
+                                <i class="material-icons">print</i>
+                                <span>Print Purchase Order</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="col-md-6 left">
+                        PO Number : <label>@Model.PurchaseOrderEdit.PurchaseOrderCode</label>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        Supplier Code : @Model.PurchaseOrderEdit.SupplierCode
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            Supplier Name : @Model.PurchaseOrderEdit.SupplierName
+                        </div>
+                        <div class="col-md-12">
+                            Address : @Model.PurchaseOrderEdit.SupplierAddress
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <p class="pull-right">Date: @Model.PurchaseOrderEdit.CreationTime</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <table id="purchaseOrderTable" class="table">
+                        <thead>
+                            <tr>
+                                <th rowspan="1" align="center">Code</th>
+                                <th rowspan="1" align="center" valign="middle">Description</th>
+                                <th>Case</th>
+                                <th>Box</th>
+                                <th>PCS</th>
+                                <th rowspan="1" align="center">Price</th>
+                                <th rowspan="1" align="center">Gross</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0;}
+                            @foreach (var details in Model.PurchaseOrderEdit.PurchaseOrderDetails)
+                            {
+                                <tr id="@i">
+                                    <td id="prodCode">@details.ProductCode</td>
+                                    <td>@details.ProductItemName</td>
+                                    <td>@details.Case</td>
+                                    <td>@details.Box</td>
+                                    <td>@details.Piece</td>
+                                    <td>@details.TotalProductPrice</td>
+                                    <td>@details.Gross</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div style="border:solid" class="col-md-6">
+                            Total Article: <p id="article"></p>
+                            Cases = @Model.PurchaseOrderEdit.TotalCase, Box = @Model.PurchaseOrderEdit.TotalBox, Pieces = @Model.PurchaseOrderEdit.TotalPiece
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Total:</strong></div>
+                                <div class="col-md-6"><p class="pull-right">@Model.PurchaseOrderEdit.TotalGross</p></div>
+                                <hr style="display: block; overflow: hidden; border-style: inset; border-width: 1px;">
+                                <div class="col-md-6"><strong>Net Amount:</strong> </div>
+                                <div class="col-md-6"><p class="pull-right">@Model.PurchaseOrderEdit.TotalNet</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6"><strong>Vatable Sales:</strong></div>
+                                <div class="col-md-6"><p class="pull-right">@Model.PurchaseOrderEdit.Vatable</p></div>
+                                <div class="col-md-6"><strong>Vat Amount :</strong></div>
+                                <div class="col-md-6"><p class="pull-right">@Model.PurchaseOrderEdit.TwelvePercentVat</p></div>
+                                <hr style="display: block; overflow: hidden; border-style: inset; border-width: 1px;">
+                                <div class="col-md-6"><strong>Total Amount due:</strong> </div>
+                                <div class="col-md-6"><p class="pull-right">@Model.PurchaseOrderEdit.TotalNet</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

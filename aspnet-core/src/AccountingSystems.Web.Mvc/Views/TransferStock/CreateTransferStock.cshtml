@@ -1,0 +1,211 @@
+﻿@model AccountingSystems.Web.Models.Transaction.CreateTransferStockViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.CreateTransferStock; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/TransferStock/CreateTransferStock.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/TransferStock/CreateTransferStock.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Create Transfer Stock
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label for="transferStockNumber">Transfer Stock Number</label>
+                        <div class="form-line">
+                            <input id="transferStockNumber" type="text" class="form-control" value="XXXXXXX">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <input type="checkbox" value="true" id="isAllowed" class="filled-in" />
+                            <label for="isAllowed">Allowed Edit Date</label>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                            <label for="transferStockDate">Transfer Stock Date</label>
+                            <div class="form-line">
+                                <input id="transferStockDate" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label for="transferFrom">Transfer From:</label>
+                        <div class="form-line">
+                            <select id="transferFrom" class="form-control show-tick" data-live-search="true">
+                                <option value="">Select Destination</option>
+                                <option value="Warehouse 1">Warehouse 1</option>
+                                <option value="Warehouse 2">Warehouse 2</option>
+                                <option value="Warehouse 3">Warehouse 3</option>
+                                <option value="Warehouse 4">Warehouse 4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label for="fromName">Source Name</label>
+                        <div class="form-line">
+                            <input id="fromName" placeholder="Source Name" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label for="transferTo">Transfer To:</label>
+                        <div class="form-line">
+                            <select id="transferTo" class="form-control show-tick" data-live-search="true">
+                                <option value="">Select Destination</option>
+                                <option value="Warehouse 1">Warehouse 1</option>
+                                <option value="Warehouse 2">Warehouse 2</option>
+                                <option value="Warehouse 3">Warehouse 3</option>
+                                <option value="Warehouse 4">Warehouse 4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label for="toName">Destination Name</label>
+                        <div class="form-line">
+                            <input id="toName" placeholder="Destination Name" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row clearfix">
+                    <table id="invoiceTable" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>CS</th>
+                                <th>UOM</th>
+                                <th>PCS</th>
+                                <th>UOM</th>
+                                <th>PT</th>
+                                <th>Price</th>
+                                <th>Gross</th>
+                                <th>Net</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Total</th>
+                                <th></th>
+                                <th id="totalCase"></th>
+                                <th>CS</th>
+                                <th id="totalPcs"></th>
+                                <th>PCS</th>
+                                <th></th>
+                                <th id="totalPrice"></th>
+                                <th id="totalGross"></th>
+                                <th id="totalNet"></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row clearfix">
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="priceType">Price Type</label>
+                            <div class="form-line">
+                                <select id="priceType" class="form-control show-tick" data-live-search="true">
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                    <option>E</option>
+                                    <option>F</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                            <label for="bookingCode">Booking Code</label>
+                            <div class="form-line">
+                                <input id="bookingCode" type="text" value="R">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="row clearfix">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <label for="prodCode">Product Code</label>
+                                <div class="form-line">
+                                    <select id="prodCode" class="form-control show-tick" data-live-search="true">
+                                        <option value="">Select Product</option>
+                                        @foreach (var prods in Model.Products)
+                                        {
+                                            <option value="@prods.Id">@prods.Code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <label for="cases">Cases</label>
+                                <div class="form-line">
+                                    <input id="cases" type="text" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <label for="pcs">PCS</label>
+                                <div class="form-line">
+                                    <input id="pcs" type="text" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <button id="addInvoice" type="button" class="btn btn-block btn-lg btn-primary waves-effect">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="row clearfix right">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label for="vatable">Vatable</label>
+                                <div class="form-line">
+                                    <input id="vatable" type="text" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label for="vat">12% VAT</label>
+                                <div class="form-line">
+                                    <input id="vat" type="text" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <button type="button" class="btn btn-block btn-lg btn-primary waves-effect">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

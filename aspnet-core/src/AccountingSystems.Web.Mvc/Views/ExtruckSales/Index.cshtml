@@ -1,0 +1,79 @@
+﻿@model AccountingSystems.Web.Models.ExtruckSales.ExtruckSalesListViewModel
+@using AccountingSystems.Web.Startup
+@{
+    ViewBag.CurrentPageName = PageNames.ExTruckSales; // The menu item will be active for this page.
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/ExtruckSales/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/ExtruckSales/Index.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("ExTruckSales")
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>@L("Refresh")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table id="extruckSalesListTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ex-Truck Sale Number</th>
+                            <th>Customer Name</th>
+                            <th>Address</th>
+                            <th>Salesman Name</th>
+                            <th>Date</th>
+                            <th>Encoder</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var extruckSales in Model.ExtruckSaleLists)
+                        {
+                            <tr>
+                                <td>@extruckSales.ExtruckSaleCode</td>
+                                <td>@extruckSales.CustomerName</td>
+                                <td>@extruckSales.CustomerAddress</td>
+                                <td>@extruckSales.SalesmanName</td>
+                                <td>@extruckSales.ExtruckSaleDate</td>
+                                <td>@extruckSales.CreatorUsername</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="/ExtruckSales/View?extruckId=@extruckSales.Id" class="waves-effect waves-block "><i class="material-icons">chrome_reader_mode</i>View</a></li>
+                                        <li><a href="/ExtruckSales/Edit?extruckId=@extruckSales.Id" class="waves-effect waves-block "><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block delete-extruckSales" data-extruckSales-id="@extruckSales.Id" data-extruckSales-name="@extruckSales.ExtruckSaleCode"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <a href="/ExtruckSales/Create" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
